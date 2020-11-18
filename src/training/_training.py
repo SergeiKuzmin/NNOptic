@@ -2,11 +2,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.optimize import minimize
 
-from Learning.Network import Network
-from load_data.load_data import load_data, load_goal_matrices
-from funcs_for_matrices.funcs_for_matrices import create_list_fl, transform_to_matrix, transform_to_1d_list, interferometer, get_list_noisy
-from funcs_for_matrices.funcs_for_matrices import create_mini_batch, get_random_phase, norma_square, polar_correct
-from functionals.functionals import frobenius_reduced, infidelity, weak_reduced, sst
+from src.load_data import load_data, load_goal_matrices
+from src.funcs_for_matrices import create_list_fl, transform_to_matrix, transform_to_1d_list, interferometer
+from src.funcs_for_matrices import create_mini_batch, get_random_phase, norma_square, polar_correct, get_list_noisy
+from src.functionals import frobenius_reduced, infidelity, sst, weak_reduced
 
 
 def func_frobenius(x, network, mini_batch_f, mini_batch_u, n):
@@ -75,8 +74,8 @@ def derivative_func_sst(x, network, mini_batch_f, mini_batch_u, n):
     return der
 
 
-def learning(file_name1, file_name2, file_name3, n, m, mini_batch_size, counts_of_epochs, func, derivative_func,
-             functional, coeff, noisy_f, noisy_u, network, method='L-BFGS-B'):
+def trainer(file_name1, file_name2, file_name3, n, m, mini_batch_size, counts_of_epochs, func, derivative_func,
+            functional, coeff, noisy_f, noisy_u, network, method='L-BFGS-B'):
     fm, um = load_data(n, m, file_name2)  # Got the whole sample
     for u in um:
         fm = fm + noisy_f * np.random.randn(n, n)

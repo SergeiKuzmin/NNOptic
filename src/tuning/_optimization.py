@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import copy
 from scipy.optimize import minimize
 
-from functionals.functionals import infidelity, frobenius_reduced, weak_reduced, sst
+from src.functionals import infidelity, frobenius_reduced, weak_reduced, sst
 
 
 def func_fidelity(x, inter, n):
@@ -79,7 +79,7 @@ def derivative_func_sst(x, inter, n):
     return grad
 
 
-def optimization(inter, counts_of_epochs, function, der_function, method):
+def optimizer(inter, counts_of_epochs, function, der_function, method):
     x0 = inter.F.reshape(-1)  # Initialized Optimization algorithm
     steps = []
     results = []

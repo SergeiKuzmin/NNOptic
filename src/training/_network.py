@@ -1,8 +1,8 @@
 import numpy as np
 from scipy import linalg
 
-from funcs_for_matrices.funcs_for_matrices import generator_unitary_matrix, create_list_fl, interferometer
-from funcs_for_matrices.funcs_for_matrices import transform_sst, r_r_r_l
+from src.funcs_for_matrices import generator_unitary_matrix, create_list_fl, interferometer
+from src.funcs_for_matrices import transform_sst, r_r_r_l
 
 
 class Network(object):

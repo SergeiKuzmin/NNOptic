@@ -1,0 +1,6 @@
+.idea/
+/examples/data
+__pycache__/
+goal_matrices.txt
+sample_of_unitaries_matrices.txt
+save_network.txt
