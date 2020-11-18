@@ -2,13 +2,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time
 
-from load_data.generator_unitary_matrix import save_base_unitary_matrices
-from load_data.generator_sample_of_unitaries_matrices import save_sample_unitary_matrices
-from Learning.learning import learning, func_frobenius, derivative_func_frobenius
-from Learning.learning import func_weak, derivative_func_weak
-from Learning.learning import func_sst, derivative_func_sst
-from functionals.functionals import frobenius_reduced, weak_reduced, sst
-from Learning.Network import Network
+from nnoptic import save_base_unitary_matrices, save_sample_unitary_matrices
+from nnoptic import trainer
+from nnoptic.training import func_frobenius, derivative_func_frobenius
+from nnoptic.training import func_sst, derivative_func_sst
+from nnoptic.training import func_weak, derivative_func_weak
+from nnoptic import frobenius_reduced, sst, weak_reduced
+from nnoptic import Network
 
 # plt.style.use('classic')
 
@@ -52,7 +52,7 @@ epochs = []
 
 for i in range(m):
     network = Network(N, M, mini_batch_size, False)
-    steps, results, cross_validation, norma = learning(file_name1, file_name2, False, N, M, mini_batch_size, counts_of_epochs,
+    steps, results, cross_validation, norma = trainer(file_name1, file_name2, False, N, M, mini_batch_size, counts_of_epochs,
                                                 func, grad_func, functional,
                                                 coeff, noisy_f, noisy_u, network, method)
     list_steps.append(steps)

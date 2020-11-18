@@ -2,10 +2,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.optimize import minimize
 
-from src.load_data import load_data, load_goal_matrices
-from src.funcs_for_matrices import create_list_fl, transform_to_matrix, transform_to_1d_list, interferometer
-from src.funcs_for_matrices import create_mini_batch, get_random_phase, norma_square, polar_correct, get_list_noisy
-from src.functionals import frobenius_reduced, infidelity, sst, weak_reduced
+from nnoptic.load_data import load_data, load_goal_matrices
+from nnoptic.funcs_for_matrices import create_list_fl, transform_to_matrix, transform_to_1d_list, interferometer
+from nnoptic.funcs_for_matrices import create_mini_batch, get_random_phase, norma_square, polar_correct, get_list_noisy
+from nnoptic.functionals import frobenius_reduced, infidelity, sst, weak_reduced
 
 
 def func_frobenius(x, network, mini_batch_f, mini_batch_u, n):

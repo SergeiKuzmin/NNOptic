@@ -2,20 +2,17 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time
 
-from Optimization._optimization import optimization
-from Optimization._interferometer import Interferometer
-from Learning.Network import *
-from Optimization._optimization import func_fidelity, derivative_func_fidelity, func_frobenius, derivative_func_frobenius
-from Optimization._optimization import func_weak, derivative_func_weak, func_sst, derivative_func_sst
-from funcs_for_matrices.funcs_for_matrices import get_random_phase, create_fourier_matrix
-
-# plt.style.use('classic')
+from nnoptic.tuning import Interferometer
+from nnoptic.tuning import func_frobenius, func_fidelity, func_sst, func_weak
+from nnoptic.tuning import derivative_func_frobenius, derivative_func_fidelity
+from nnoptic.tuning import derivative_func_sst, derivative_func_weak
+from nnoptic.tuning import optimizer
+from nnoptic import create_list_fl, generator_unitary_matrix, get_random_phase
 
 start_time = time.time()
 
 N = 4
 counts_of_epochs = 300
-# file_name = '/home/sergey/QLearn_save/goal_matrices.txt'
 file_name = None
 
 func, grad_func = func_frobenius, derivative_func_frobenius
@@ -77,7 +74,7 @@ for i in range(m):
     # target = interferometer(Fl, Ul, N)
     target = generator_unitary_matrix(N)
     inter.set_target(target)
-    steps, results = optimization(inter, counts_of_epochs, func, grad_func,
+    steps, results = optimizer(inter, counts_of_epochs, func, grad_func,
                                                     'Nelder-Mead')
     list_steps.append(steps)
     list_nm.append(results)
@@ -101,22 +98,14 @@ print('--- %s seconds ---' % (delta_time / m))
 
 fig, ax = plt.subplots()
 plt.plot(epochs, mean_bfgs, color='green', lw=2, label='BFGS')
-# plt.fill_between(epochs, mean_bfgs - std_bfgs, mean_bfgs + std_bfgs, color='#CCCCCC')
 plt.plot(epochs, mean_nm, color='red', lw=2, label='Nelder-Mead')
-# plt.fill_between(epochs, mean_nm - std_nm,
-#                   mean_nm + std_nm, color='#CCCCCC')
 plt.tick_params(which='major', direction='in')
 plt.tick_params(which='minor', direction='in')
-# lower left
-# lower right
-# upper left
-# upper right
 plt.legend(loc="upper right")
 ax.grid()
 ax.minorticks_off()
 plt.xlim(0, counts_of_epochs - 1)
 plt.yscale('log')
-# plt.ylim(0.00001, 3.0)
 plt.xlabel('Итерации алгоритма оптимизации', fontsize=11)
 plt.ylabel(label, fontsize=15)
 plt.title('N = '+str(N))

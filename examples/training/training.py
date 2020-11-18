@@ -2,15 +2,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time
 
-from src import save_base_unitary_matrices, save_sample_unitary_matrices
-from src import trainer
-from src.training import func_frobenius, derivative_func_frobenius
-from src.training import func_sst, derivative_func_sst
-from src.training import func_weak, derivative_func_weak
-from src import frobenius_reduced, sst, weak_reduced
-from src import Network
-
-# plt.style.use('classic')
+from nnoptic import save_base_unitary_matrices, save_sample_unitary_matrices
+from nnoptic import trainer
+from nnoptic.training import func_frobenius, derivative_func_frobenius
+from nnoptic.training import func_sst, derivative_func_sst
+from nnoptic.training import func_weak, derivative_func_weak
+from nnoptic import frobenius_reduced, sst, weak_reduced
+from nnoptic import Network
 
 start_time = time.time()
 
@@ -84,32 +82,18 @@ std_cross_validation = (std_cross_validation / m * (m - 1)) ** 0.5
 delta_time = time.time() - start_time
 print('--- %s seconds ---' % delta_time)
 print('--- %s seconds ---' % (delta_time / m))
-# 99ff99
-#d0e3f7
-# CCCCCC
 fig, ax = plt.subplots()
 plt.plot(epochs, mean_cross_validation, color='green', lw=2, label=label + ' тестового набора')
-# plt.fill_between(epochs, mean_cross_validation - std_cross_validation,
-#                   mean_cross_validation + std_cross_validation, color='#CCCCCC')
 plt.plot(epochs, mean_results, color='blue', lw=2, label=label + ' тренировочного набора')
 # plt.fill_between(epochs, mean_results - std_results, mean_results + std_results, color='#CCCCCC')
 plt.tick_params(which='major', direction='in')
 plt.tick_params(which='minor', direction='in')
-# lower left
-# lower right
-# upper left
-# upper right
 plt.legend(loc="upper right")
 ax.grid()
 ax.minorticks_off()
 plt.xlim(0, 999)
 plt.yscale('log')
-# plt.ylim(1e-5, 3)
 plt.xlabel('Эпохи обучения', fontsize=11)
 plt.ylabel(label, fontsize=15)
-# plt.title('N = '+str(N)+', M = '+str(M)+', '+r'$\alpha_u$ = '+str(noisy_u)+', '+r'$\alpha_{\phi}$ = '+str(noisy_f))
 plt.title('N = '+str(N)+', M = '+str(M))
 plt.show()
-
-# error_average /= m
-# print(error_average)

@@ -2,14 +2,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time
 
-from Optimization._optimization import optimization
-from Optimization._interferometer import Interferometer
-from Learning.Network import *
-from Optimization._optimization import func_fidelity, derivative_func_fidelity, func_frobenius, derivative_func_frobenius
-from Optimization._optimization import func_weak, derivative_func_weak, func_sst, derivative_func_sst
-from funcs_for_matrices.funcs_for_matrices import get_random_phase, create_fourier_matrix
-
-# plt.style.use('classic')
+from nnoptic.tuning import Interferometer
+from nnoptic.tuning import func_frobenius, func_fidelity, func_sst, func_weak
+from nnoptic.tuning import derivative_func_frobenius, derivative_func_fidelity
+from nnoptic.tuning import derivative_func_sst, derivative_func_weak
+from nnoptic.tuning import optimizer
+from nnoptic import create_list_fl, generator_unitary_matrix, get_random_phase
 
 start_time = time.time()
 
@@ -27,15 +25,6 @@ if label == r'$J_{W}$':
     func, grad_func = func_weak, derivative_func_weak
 if label == r'$J_{SST}$':
     func, grad_func = func_sst, derivative_func_sst
-
-# F_target = get_random_phase(N)
-# Fl = create_list_fl(F_target, N)
-# Ul = inter.list_U
-#
-# target = interferometer(Fl, Ul, N)
-# target = create_fourier_matrix(N)
-# target = generator_unitary_matrix(N)
-# inter.set_target(target)
 
 m = 5
 
@@ -55,10 +44,9 @@ for i in range(m):
     F_target = get_random_phase(N)
     Fl = create_list_fl(F_target, N)
     Ul = inter.list_U
-    # target = interferometer(Fl, Ul, N)
     target = generator_unitary_matrix(N)
     inter.set_target(target)
-    steps, results = optimization(inter, counts_of_epochs, func, grad_func, 'L-BFGS-B')
+    steps, results = optimizer(inter, counts_of_epochs, func, grad_func, 'L-BFGS-B')
     list_steps.append(steps)
     list_fourier.append(results)
 

@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import copy
 from scipy.optimize import minimize
 
-from src.functionals import infidelity, frobenius_reduced, weak_reduced, sst
+from nnoptic.functionals import infidelity, frobenius_reduced, weak_reduced, sst
 
 
 def func_fidelity(x, inter, n):

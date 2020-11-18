@@ -1,5 +1,5 @@
 import numpy as np
-from src.funcs_for_matrices import transform_sst
+from nnoptic.funcs_for_matrices import transform_sst
 
 
 def frobenius_reduced(_u, _v):

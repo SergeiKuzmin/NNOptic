@@ -1,8 +1,8 @@
 import numpy as np
 
-from src.funcs_for_matrices import generator_unitary_matrix, create_list_fl, interferometer
-from src.funcs_for_matrices import transform_sst, r_r_r_l
-from src.funcs_for_matrices import create_fourier_matrix
+from nnoptic.funcs_for_matrices import generator_unitary_matrix, create_list_fl, interferometer
+from nnoptic.funcs_for_matrices import transform_sst, r_r_r_l
+from nnoptic.funcs_for_matrices import create_fourier_matrix
 
 
 class Interferometer(object):

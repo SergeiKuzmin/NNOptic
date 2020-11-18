@@ -1,5 +1,5 @@
 import numpy as np
-from src.funcs_for_matrices import interferometer, create_list_fl
+from nnoptic.funcs_for_matrices import interferometer, create_list_fl
 
 # This module creates a sample of size M from unitary matrices of size N by N, using as base matrices
 # matrices from the file 'goal_matrices.txt' and saves this selection to the file 'sample_of_unitaries_matrices'
