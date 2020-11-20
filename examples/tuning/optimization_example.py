@@ -26,15 +26,6 @@ if label == r'$J_{W}$':
 if label == r'$J_{SST}$':
     func, grad_func = func_sst, derivative_func_sst
 
-# F_target = get_random_phase(N)
-# Fl = create_list_fl(F_target, N)
-# Ul = inter.list_U
-#
-# target = interferometer(Fl, Ul, N)
-# target = create_fourier_matrix(N)
-# target = generator_unitary_matrix(N)
-# inter.set_target(target)
-
 m = 10
 
 mean_bfgs = np.zeros(counts_of_epochs)
@@ -48,7 +39,6 @@ list_nm = []
 
 epochs = []
 
-# basis = 'fourier'
 basis = 'stoch'
 
 for i in range(m):
@@ -56,10 +46,9 @@ for i in range(m):
     F_target = get_random_phase(N)
     Fl = create_list_fl(F_target, N)
     Ul = inter.list_U
-    # target = interferometer(Fl, Ul, N)
     target = generator_unitary_matrix(N)
     inter.set_target(target)
-    steps, results = optimization(inter, counts_of_epochs, func, grad_func, 'L-BFGS-B')
+    steps, results = optimizer(inter, counts_of_epochs, func, grad_func, 'L-BFGS-B')
     list_steps.append(steps)
     list_bfgs.append(results)
 
@@ -71,11 +60,9 @@ for i in range(m):
     F_target = get_random_phase(N)
     Fl = create_list_fl(F_target, N)
     Ul = inter.list_U
-    # target = interferometer(Fl, Ul, N)
     target = generator_unitary_matrix(N)
     inter.set_target(target)
-    steps, results = optimizer(inter, counts_of_epochs, func, grad_func,
-                                                    'Nelder-Mead')
+    steps, results = optimizer(inter, counts_of_epochs, func, grad_func, 'Nelder-Mead')
     list_steps.append(steps)
     list_nm.append(results)
 
