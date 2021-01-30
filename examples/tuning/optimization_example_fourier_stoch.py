@@ -11,8 +11,8 @@ from nnoptic import create_list_fl, generator_unitary_matrix, get_random_phase
 
 start_time = time.time()
 
-N = 20
-counts_of_epochs = 150
+N = 5  # Dimension of matrices and number of basis matrices
+counts_of_epochs = 150  # Number of Tuning steps
 file_name = None
 
 func, grad_func = func_frobenius, derivative_func_frobenius
@@ -63,7 +63,7 @@ for i in range(m):
     # target = interferometer(Fl, Ul, N)
     target = generator_unitary_matrix(N)
     inter.set_target(target)
-    steps, results = optimization(inter, counts_of_epochs, func, grad_func, 'L-BFGS-B')
+    steps, results = optimizer(inter, counts_of_epochs, func, grad_func, 'L-BFGS-B')
     list_steps.append(steps)
     list_stoch.append(results)
 
@@ -75,27 +75,18 @@ mean_stoch = mean_stoch / m
 
 delta_time = time.time() - start_time
 print('--- %s seconds ---' % delta_time)
-print('--- %s seconds ---' % (delta_time / m))
 
 fig, ax = plt.subplots()
-plt.plot(epochs, mean_fourier, color='green', lw=2, label='Базисные матрицы - Фурье')
-# plt.fill_between(epochs, mean_bfgs - std_bfgs, mean_bfgs + std_bfgs, color='#CCCCCC')
-plt.plot(epochs, mean_stoch, color='blue', lw=2, label='Базисные матрицы - случайные')
-# plt.fill_between(epochs, mean_nm - std_nm,
-#                   mean_nm + std_nm, color='#CCCCCC')
+plt.plot(epochs, mean_fourier, color='green', lw=2, label='Basis matrices - Fourier')
+plt.plot(epochs, mean_stoch, color='blue', lw=2, label='Basis matrices - Stochastic')
 plt.tick_params(which='major', direction='in')
 plt.tick_params(which='minor', direction='in')
-# lower left
-# lower right
-# upper left
-# upper right
 plt.legend(loc="upper right")
 ax.grid()
 ax.minorticks_off()
 plt.xlim(0, counts_of_epochs - 1)
 plt.yscale('log')
-# plt.ylim(0.00001, 3.0)
-plt.xlabel('Итерации алгоритма оптимизации', fontsize=11)
+plt.xlabel('Tuning iterations', fontsize=11)
 plt.ylabel(label, fontsize=15)
 plt.title('N = '+str(N))
 plt.show()

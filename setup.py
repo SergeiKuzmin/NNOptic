@@ -10,7 +10,7 @@ setup(
     version="1.0",
     author="Sergei Kuzmin",
     author_email="ssk251198@yandex.ru",
-    description="A package to convert your Jupyter Notebook",
+    description="A package to training and tuning neural network modeling linear optics scheme",
     long_description=readme,
     long_description_content_type="text/markdown",
     url="https://gitlab.com/SergeiKuzmin/nnoptic.git",

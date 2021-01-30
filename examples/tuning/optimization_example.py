@@ -11,8 +11,8 @@ from nnoptic import create_list_fl, generator_unitary_matrix, get_random_phase
 
 start_time = time.time()
 
-N = 4
-counts_of_epochs = 300
+N = 5  # Dimension of matrices and number of basis matrices
+counts_of_epochs = 300  # Number of Tuning steps
 file_name = None
 
 func, grad_func = func_frobenius, derivative_func_frobenius
@@ -81,7 +81,6 @@ std_nm = (std_nm / (m - 1)) ** 0.5
 
 delta_time = time.time() - start_time
 print('--- %s seconds ---' % delta_time)
-print('--- %s seconds ---' % (delta_time / m))
 
 fig, ax = plt.subplots()
 plt.plot(epochs, mean_bfgs, color='green', lw=2, label='BFGS')
@@ -93,7 +92,7 @@ ax.grid()
 ax.minorticks_off()
 plt.xlim(0, counts_of_epochs - 1)
 plt.yscale('log')
-plt.xlabel('Итерации алгоритма оптимизации', fontsize=11)
+plt.xlabel('Tuning iterations', fontsize=11)
 plt.ylabel(label, fontsize=15)
 plt.title('N = '+str(N))
 plt.show()

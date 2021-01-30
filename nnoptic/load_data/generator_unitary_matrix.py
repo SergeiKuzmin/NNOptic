@@ -33,4 +33,4 @@ def save_base_unitary_matrices(n, file_name):  # n - size and number of unitary 
                 file.write(str(list_u[l][i][j].imag) + '\n')
         file.write('\n')
     file.close()
-    print('Base matrices are successfully generated and loaded to file')
+    print('Basis matrices are successfully generated and loaded to file')

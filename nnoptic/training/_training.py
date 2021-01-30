@@ -80,7 +80,7 @@ def trainer(file_name1, file_name2, file_name3, n, m, mini_batch_size, counts_of
     for u in um:
         fm = fm + noisy_f * np.random.randn(n, n)
         um = um + noisy_u * (np.random.randn(n, n) + 1j * np.random.randn(n, n))
-    um = polar_correct(um)
+    um = polar_correct(um)  # Unitarization of basis matrices
 
     # network = Network(n, m, mini_batch_size, file_name3)  # Created an object of class Network
 
@@ -111,18 +111,14 @@ def trainer(file_name1, file_name2, file_name3, n, m, mini_batch_size, counts_of
             norma.append(norma_square(interferometer(create_list_fl(mini_batch_f[0], n), network.list_U, n), n))
 
             res = minimize(func, x0, args=(network, mini_batch_f, mini_batch_u, n), method='L-BFGS-B',
-                       jac=derivative_func, options={'disp': False, 'maxiter': 1})  # Optimization step 'BFGS'
+                           jac=derivative_func, options={'disp': False, 'maxiter': 1})  # Optimization step 'BFGS'
             network.list_U = transform_to_matrix(res.x, n)  # Updated the neural network
             network.polar_correct()
-            # print(norma_square(network.list_U[0], network.N))
             x0 = res.x
-            # print(x0, ' ', results[i])
             f = get_random_phase(n)
-            print('epoch: ', i + 1, ' ', results[i], ' ',
+            print('Epoch: ', i + 1, ' Training set: ', results[i], ' Test set: ',
                   functional(interferometer(create_list_fl(f, n), network.list_U, n),
-                             interferometer(create_list_fl(f, n), list_goal_u, n)),
-                  norma_square(interferometer(create_list_fl(mini_batch_f[0], n), network.list_U, n), n),
-                  norma_square(mini_batch_u[0], n))
+                             interferometer(create_list_fl(f, n), list_goal_u, n)))
 
     if method == 'SGD':
         print('Turned on SGD')
@@ -146,24 +142,8 @@ def trainer(file_name1, file_name2, file_name3, n, m, mini_batch_size, counts_of
             # print(norma_square(network.list_U[0], network.N))
             # print(x0, ' ', results[i])
             f = get_random_phase(n)
-            print('epoch: ', i + 1, ' ', results[i], ' ',
-                  functional(interferometer(create_list_fl(f, n), network.list_U, n),
-                             interferometer(create_list_fl(f, n), list_goal_u, n)),
-                  norma_square(interferometer(create_list_fl(mini_batch_f[0], n), network.list_U, n), n),
-                  norma_square(mini_batch_u[0], n))
-
-    # fig, ax = plt.subplots()
-    # ax.plot(steps, results, label='loss function')
-    # ax.plot(steps, cross_validation, label='cross validation')
-    # plt.tick_params(which='major', direction='in')
-    # plt.tick_params(which='minor', direction='in')
-    # plt.yscale('log')
-    # # plt.ylim(1e-10, 1.0)
-    # plt.legend()
-    # ax.grid(which='major')
-    # ax.minorticks_off()
-    # ax.grid(which='minor')
-    # plt.show()
+            print('epoch: ', i + 1, ' Training set: ', results[i], ' Test set: ',
+                  functional(interferometer(create_list_fl(f, n), network.list_U, n)))
 
     # Cross validation
     list_goal_u = load_goal_matrices(n, file_name1)
@@ -175,9 +155,9 @@ def trainer(file_name1, file_name2, file_name3, n, m, mini_batch_size, counts_of
               infidelity(interferometer(create_list_fl(f, n), network.list_U, n),
                          interferometer(create_list_fl(f, n), list_goal_u, n)),
               weak_reduced(interferometer(create_list_fl(f, n), network.list_U, n),
-                         interferometer(create_list_fl(f, n), list_goal_u, n)),
+                           interferometer(create_list_fl(f, n), list_goal_u, n)),
               sst(interferometer(create_list_fl(f, n), network.list_U, n),
-                         interferometer(create_list_fl(f, n), list_goal_u, n)))
+                  interferometer(create_list_fl(f, n), list_goal_u, n)))
 
     steps = np.array(steps)
     results = np.array(results)
@@ -188,7 +168,7 @@ def trainer(file_name1, file_name2, file_name3, n, m, mini_batch_size, counts_of
     for i in range(1000):
         f = get_random_phase(n)
         error = error + infidelity(interferometer(create_list_fl(f, n), network.list_U, n),
-                          interferometer(create_list_fl(f, n), list_goal_u, n))
+                                   interferometer(create_list_fl(f, n), list_goal_u, n))
     error = error / 1000
 
     return steps, results, cross_validation, norma, error
