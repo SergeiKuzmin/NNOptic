@@ -15,19 +15,19 @@ Installation
 **It is recommended** to install the library 
 in a virtual environment.
 
-###Linux
+### Linux
 ```
    python -m venv NNOptic
    source NNOptic/bin/activate
 ```
 
-###Windows
+### Windows
 ```
    python -m venv NNOptic
    NNOptic/Scripts/activate.bat 
 ```
 
-##Installing from source code
+## Installing from source code
 To install the stable or development version, 
 you need to install from the source. 
 First, clone the repository:
