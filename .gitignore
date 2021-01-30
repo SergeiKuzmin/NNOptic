@@ -1,4 +1,7 @@
 .idea/
+build/
+dist/
+nnoptic.egg-info/
 /examples/data
 __pycache__/
 goal_matrices.txt
