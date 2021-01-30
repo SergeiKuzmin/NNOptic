@@ -24,7 +24,7 @@ in a virtual environment.
 ### Windows
 ```
    python -m venv NNOptic
-   NNOptic/Scripts/activate.bat 
+   NNOptic\Scripts\activate.bat 
 ```
 
 ## Installing from source code
