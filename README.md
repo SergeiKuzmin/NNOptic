@@ -16,29 +16,29 @@ Installation
 in a virtual environment.
 
 ### Linux
-```
+`
    python -m venv NNOptic
    source NNOptic/bin/activate
-```
+`
 
 ### Windows
-```
+`
    python -m venv NNOptic
    NNOptic/Scripts/activate.bat 
-```
+`
 
 ## Installing from source code
 To install the stable or development version, 
 you need to install from the source. 
 First, clone the repository:
 
-```
+`
    git clone https://gitlab.com/SergeiKuzmin/nnoptic.git
-```
+`
 
-```
+`
    python setup.py install
-```
+`
 What those packages do
 ====
 
