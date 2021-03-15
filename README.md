@@ -52,4 +52,4 @@ They have the following functionality:
 - `nnoptic.load_data` : Contains auxiliary functions for creating and loading basis matrices
 - `examples` : Contains typical examples that use the nnoptic library
 
-Current maintainer is [Sergei Kuzmin](https://gitlab.com/SergeiKuzmin).
+Current maintainer is [Sergei Kuzmin](https://github.com/SergeiKuzmin).
